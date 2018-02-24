@@ -5,4 +5,5 @@ package com.wili.android.popularmoviesapp.view;
  */
 
 public interface DetailsActivityView {
+    void displayMovieInfo();
 }
