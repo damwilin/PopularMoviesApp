@@ -1,5 +1,6 @@
 package com.wili.android.popularmoviesapp.presenter;
 
+import com.wili.android.popularmoviesapp.Adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.view.MainActivityView;
