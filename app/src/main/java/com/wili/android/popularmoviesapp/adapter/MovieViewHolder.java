@@ -1,9 +1,8 @@
-package com.wili.android.popularmoviesapp.Adapter;
+package com.wili.android.popularmoviesapp.adapter;
 
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
@@ -13,12 +12,14 @@ import com.wili.android.popularmoviesapp.R;
  */
 
 public class MovieViewHolder extends RecyclerView.ViewHolder {
-    public final TextView title;
-    public final ImageView background;
+    private final TextView title;
 
     public MovieViewHolder(View itemView) {
         super(itemView);
         title = (TextView) itemView.findViewById(R.id.movie_title);
-        background = (ImageView) itemView.findViewById(R.id.background_image);
+    }
+
+    public void setTitle(String title) {
+        this.title.setText(title);
     }
 }

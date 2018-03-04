@@ -1,13 +1,17 @@
 package com.wili.android.popularmoviesapp.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
+import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.view.MainActivityView;
 
@@ -24,11 +28,38 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter movieAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            case R.id.menu_popular:
+                //change
+                return true;
+            case R.id.menu_top_rated:
+                //change
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -40,4 +71,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     public void displayNoMovies() {
 
     }
+
+    public void configureRecyclerView(List<Movie> movieList) {
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        movieAdapter = new MovieAdapter();
+        recyclerView.setAdapter(movieAdapter);
+
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.Adapter;
+package com.wili.android.popularmoviesapp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +19,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private List<Movie> movieList;
 
-    public MovieAdapter(List<Movie> movieList) {
-        this.movieList = movieList;
+    public MovieAdapter() {
+
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String title = movieList.get(position).getTitle();
-        holder.title.setText(title);
+        holder.setTitle(title);
 
     }
 
@@ -47,5 +47,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         return movieList.size();
     }
 
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
+        notifyDataSetChanged();
+    }
 }
 
