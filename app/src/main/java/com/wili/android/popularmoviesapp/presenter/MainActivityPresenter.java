@@ -20,8 +20,17 @@ public class MainActivityPresenter {
         this.repository = repository;
     }
 
-    public void loadMovies() {
+    public void loadPopularMovies() {
         List<Movie> movieList = repository.getPopularMovieList();
+        if (!movieList.isEmpty()) {
+            view.displayMovies(movieList);
+        } else {
+            view.displayNoMovies();
+        }
+    }
+
+    public void loadTopRatedMovies() {
+        List<Movie> movieList = repository.getTopRatedMovieList();
         if (!movieList.isEmpty()) {
             view.displayMovies(movieList);
         } else {

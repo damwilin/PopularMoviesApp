@@ -3,7 +3,6 @@ package com.wili.android.popularmoviesapp.repository;
 import com.wili.android.popularmoviesapp.repository.api.ApiSync;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

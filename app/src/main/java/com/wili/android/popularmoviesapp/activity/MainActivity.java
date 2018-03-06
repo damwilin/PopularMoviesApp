@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
+import com.wili.android.popularmoviesapp.presenter.MainActivityPresenter;
+import com.wili.android.popularmoviesapp.repository.ApiRepository;
+import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.view.MainActivityView;
 
@@ -30,7 +33,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter movieAdapter;
+    private MainActivityPresenter presenter;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MoviesRepository moviesRepository = new ApiRepository();
+        presenter = new MainActivityPresenter(this, moviesRepository);
+        presenter.loadPopularMovies();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
         switch (itemId) {
             case R.id.menu_popular:
-                //change
                 return true;
             case R.id.menu_top_rated:
                 //change
