@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public interface MoviesRepository {
-    List<Movie> getPopularMovieList() throws IOException;
+    List<Movie> getPopularMovieList();
 
-    List<Movie> getTopRatedMovieList() throws IOException;
+    List<Movie> getTopRatedMovieList();
 }

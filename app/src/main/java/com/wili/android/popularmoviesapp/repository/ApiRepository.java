@@ -15,12 +15,12 @@ public class ApiRepository implements MoviesRepository {
     private ApiSync apiSync = new ApiSync();
 
     @Override
-    public List<Movie> getPopularMovieList() throws IOException {
+    public List<Movie> getPopularMovieList() {
         return apiSync.getPopularMovies();
     }
 
     @Override
-    public List<Movie> getTopRatedMovieList() throws IOException {
+    public List<Movie> getTopRatedMovieList() {
         return apiSync.getTopRatedMovies();
     }
 }

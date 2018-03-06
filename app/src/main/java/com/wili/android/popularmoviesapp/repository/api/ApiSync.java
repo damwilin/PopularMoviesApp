@@ -1,5 +1,8 @@
 package com.wili.android.popularmoviesapp.repository.api;
 
+import android.content.res.Resources;
+import android.widget.Toast;
+
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import java.io.IOException;
@@ -32,12 +35,22 @@ public class ApiSync {
         apiService = retrofit.create(ApiService.class);
     }
 
-    public List<Movie> getPopularMovies() throws IOException {
-        return this.apiService.getPopularMovies(ApiParam.API_KEY).execute().body().getMovieList();
+    public List<Movie> getPopularMovies() {
+        try {
+            return this.apiService.getPopularMovies(ApiParam.API_KEY).execute().body().getMovieList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public List<Movie> getTopRatedMovies() throws IOException {
-        return this.apiService.getTopRatedMovies(ApiParam.API_KEY).execute().body().getMovieList();
+    public List<Movie> getTopRatedMovies() {
+        try {
+            return this.apiService.getTopRatedMovies(ApiParam.API_KEY).execute().body().getMovieList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
