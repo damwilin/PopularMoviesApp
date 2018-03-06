@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.repository;
+package com.wili.android.popularmoviesapp.repository.api;
 
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
@@ -7,8 +7,6 @@ import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.wili.android.popularmoviesapp.repository.ApiParam.API_KEY;
 
 /**
  * Created by Damian on 06.03.2018.
@@ -35,11 +33,11 @@ public class ApiSync {
     }
 
     public List<Movie> getPopularMovies() throws IOException {
-        return this.apiService.getPopularMovies(API_KEY).execute().body().getMovieList();
+        return this.apiService.getPopularMovies(ApiParam.API_KEY).execute().body().getMovieList();
     }
 
-    public List<Movie> getTopRaterMovies() throws IOException {
-        return this.apiService.getTopRatedMovies(API_KEY).execute().body().getMovieList();
+    public List<Movie> getTopRatedMovies() throws IOException {
+        return this.apiService.getTopRatedMovies(ApiParam.API_KEY).execute().body().getMovieList();
     }
 
 }

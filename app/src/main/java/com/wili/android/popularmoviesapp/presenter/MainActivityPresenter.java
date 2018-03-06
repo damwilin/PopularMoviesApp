@@ -21,7 +21,7 @@ public class MainActivityPresenter {
     }
 
     public void loadMovies() {
-        List<Movie> movieList = repository.getMovies();
+        List<Movie> movieList = repository.getPopularMovieList();
         if (!movieList.isEmpty()) {
             view.displayMovies(movieList);
         } else {

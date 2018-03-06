@@ -2,6 +2,7 @@ package com.wili.android.popularmoviesapp.repository;
 
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,5 +10,7 @@ import java.util.List;
  */
 
 public interface MoviesRepository {
-    List<Movie> getMovies();
+    List<Movie> getPopularMovieList() throws IOException;
+
+    List<Movie> getTopRatedMovieList() throws IOException;
 }

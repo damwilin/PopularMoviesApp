@@ -1,6 +1,6 @@
 package com.wili.android.popularmoviesapp.test;
 
-import com.wili.android.popularmoviesapp.repository.ApiSync;
+import com.wili.android.popularmoviesapp.repository.api.ApiSync;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import org.junit.Assert;
@@ -38,7 +38,7 @@ public class ApiServiceSyncTest {
     @Test
     public void shouldGetTopRatedMovies() {
         try {
-            movieList = apiSync.getTopRaterMovies();
+            movieList = apiSync.getTopRatedMovies();
         } catch (IOException e) {
             e.printStackTrace();
         }

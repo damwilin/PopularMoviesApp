@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.repository;
+package com.wili.android.popularmoviesapp.repository.api;
 
 import com.wili.android.popularmoviesapp.BuildConfig;
 
