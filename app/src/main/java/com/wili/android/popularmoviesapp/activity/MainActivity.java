@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +23,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.view.View.GONE;
+import static com.wili.android.popularmoviesapp.R.string.empty_view;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
     @BindView(R.id.recycler_view)
@@ -74,19 +78,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     public void displayMovies(List<Movie> movieList) {
-
+        progressBar.setVisibility(GONE);
+        emptyView.setVisibility(GONE);
+        configureRecyclerView(movieList);
     }
 
     @Override
     public void displayNoMovies() {
-
+        progressBar.setVisibility(GONE);
+        emptyView.setText(empty_view);
     }
 
     public void configureRecyclerView(List<Movie> movieList) {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        movieAdapter = new MovieAdapter(null);
+        movieAdapter = new MovieAdapter(movieList);
         recyclerView.setAdapter(movieAdapter);
 
     }

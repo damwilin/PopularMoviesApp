@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,22 +25,14 @@ public class ApiServiceSyncTest {
 
     @Test
     public void shouldGetPopularMovies() {
-        try {
-            movieList = apiSync.getPopularMovies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        movieList = apiSync.getPopularMovies();
         System.out.println(movieList.get(0).getTitle());
         Assert.assertEquals(movieList.size(), MOVIE_LIST_SIZE);
     }
 
     @Test
     public void shouldGetTopRatedMovies() {
-        try {
-            movieList = apiSync.getTopRatedMovies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        movieList = apiSync.getTopRatedMovies();
         System.out.println(movieList.get(0).getTitle());
         Assert.assertEquals(movieList.size(), MOVIE_LIST_SIZE);
     }
