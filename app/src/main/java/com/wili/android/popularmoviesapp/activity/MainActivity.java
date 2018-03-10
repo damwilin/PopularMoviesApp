@@ -40,18 +40,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     private MainActivityPresenter presenter;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        MoviesRepository moviesRepository = new ApiRepository();
-        presenter = new MainActivityPresenter(this, moviesRepository);
-        presenter.loadPopularMovies();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        MoviesRepository moviesRepository = new ApiRepository();
+        presenter = new MainActivityPresenter(this, moviesRepository);
+        presenter.loadPopularMovies();
     }
 
     @Override

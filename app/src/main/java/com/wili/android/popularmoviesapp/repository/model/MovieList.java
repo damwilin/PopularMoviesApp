@@ -1,5 +1,6 @@
 package com.wili.android.popularmoviesapp.repository.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -11,9 +12,14 @@ import java.util.List;
 public class MovieList {
 
     @SerializedName("results")
-    private List<Movie> movieList;
+    @Expose
+    public List<Movie> movieList;
 
     public List<Movie> getMovieList() {
         return movieList;
+    }
+
+    public MovieList(List<Movie> movieList) {
+        this.movieList = movieList;
     }
 }

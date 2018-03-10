@@ -1,7 +1,10 @@
 package com.wili.android.popularmoviesapp.repository.api;
 
+import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.model.MovieList;
 
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
