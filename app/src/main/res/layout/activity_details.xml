@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.wili.android.popularmoviesapp.activity.DetailsActivity">
+    tools:context="com.wili.android.popularmoviesapp.activity.detail.DetailsActivity">
 
     <ImageView
         android:id="@+id/movie_poster"

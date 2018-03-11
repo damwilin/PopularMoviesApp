@@ -1,7 +1,6 @@
 package com.wili.android.popularmoviesapp.test;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
-import com.wili.android.popularmoviesapp.repository.api.RetrofitClient;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import org.junit.Assert;

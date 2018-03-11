@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.view;
+package com.wili.android.popularmoviesapp.activity.main;
 
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 

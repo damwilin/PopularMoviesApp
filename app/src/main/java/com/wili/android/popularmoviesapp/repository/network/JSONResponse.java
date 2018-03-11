@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.repository.api;
+package com.wili.android.popularmoviesapp.repository.network;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,6 +1,6 @@
 package com.wili.android.popularmoviesapp.repository;
 
-import com.wili.android.popularmoviesapp.repository.api.JSONResponse;
+import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
 
 import retrofit2.Call;
 

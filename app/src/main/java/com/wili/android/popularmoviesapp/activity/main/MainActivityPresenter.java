@@ -1,13 +1,8 @@
-package com.wili.android.popularmoviesapp.presenter;
+package com.wili.android.popularmoviesapp.activity.main;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
-import com.wili.android.popularmoviesapp.repository.api.JSONResponse;
-import com.wili.android.popularmoviesapp.repository.model.Movie;
-import com.wili.android.popularmoviesapp.view.MainActivityView;
-
-import java.util.List;
-
-import javax.security.auth.callback.Callback;
+import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
+import com.wili.android.popularmoviesapp.activity.main.MainActivityView;
 
 import retrofit2.Call;
 import retrofit2.Response;

@@ -1,12 +1,12 @@
 package com.wili.android.popularmoviesapp.repository;
 
-import com.wili.android.popularmoviesapp.repository.api.JSONResponse;
-import com.wili.android.popularmoviesapp.repository.api.RequestInterface;
-import com.wili.android.popularmoviesapp.repository.api.RetrofitClient;
+import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
+import com.wili.android.popularmoviesapp.repository.network.RequestInterface;
+import com.wili.android.popularmoviesapp.repository.network.RetrofitClient;
 
 import retrofit2.Call;
 
-import static com.wili.android.popularmoviesapp.repository.api.ApiParam.API_KEY;
+import static com.wili.android.popularmoviesapp.repository.network.ApiParam.API_KEY;
 
 /**
  * Created by Damian on 06.03.2018.

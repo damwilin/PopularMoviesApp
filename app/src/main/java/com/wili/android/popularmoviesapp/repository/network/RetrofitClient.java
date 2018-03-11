@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.repository.api;
+package com.wili.android.popularmoviesapp.repository.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

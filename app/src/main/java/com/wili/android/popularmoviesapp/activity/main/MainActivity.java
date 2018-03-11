@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.activity;
+package com.wili.android.popularmoviesapp.activity.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
-import com.wili.android.popularmoviesapp.presenter.MainActivityPresenter;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
-import com.wili.android.popularmoviesapp.view.MainActivityView;
 
 import java.util.List;
 

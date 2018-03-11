@@ -1,4 +1,4 @@
-package com.wili.android.popularmoviesapp.activity;
+package com.wili.android.popularmoviesapp.activity.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

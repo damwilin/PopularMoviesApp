@@ -1,9 +1,9 @@
 package com.wili.android.popularmoviesapp.test;
 
-import com.wili.android.popularmoviesapp.presenter.MainActivityPresenter;
+import com.wili.android.popularmoviesapp.activity.main.MainActivityPresenter;
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
-import com.wili.android.popularmoviesapp.view.MainActivityView;
+import com.wili.android.popularmoviesapp.activity.main.MainActivityView;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,7 +14,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
