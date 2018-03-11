@@ -41,7 +41,7 @@ public class MainActivityPresenterTest {
 
     @Test
     public void shouldPassMoviesToView() {
-        Mockito.when(repository.getPopularMovieList()).thenReturn(MANY_MOVIE);
+        // Mockito.when(repository.getPopularMovieList()).thenReturn(MANY_MOVIE);
 
         presenter.loadPopularMovies();
 
@@ -50,7 +50,7 @@ public class MainActivityPresenterTest {
 
     @Test
     public void shouldPassNoMoviesToView() {
-        Mockito.when(repository.getPopularMovieList()).thenReturn(Collections.EMPTY_LIST);
+        //Mockito.when(repository.getPopularMovieList()).thenReturn(Collections.EMPTY_LIST);
 
         presenter.loadPopularMovies();
 

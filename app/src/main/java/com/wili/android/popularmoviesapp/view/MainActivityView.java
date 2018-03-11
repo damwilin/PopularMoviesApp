@@ -12,4 +12,8 @@ public interface MainActivityView {
     void displayMovies(List<Movie> movieList);
 
     void displayNoMovies();
+
+    void showLoading();
+
+    void hideLoading();
 }

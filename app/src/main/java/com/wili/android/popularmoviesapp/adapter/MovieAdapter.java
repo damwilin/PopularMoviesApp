@@ -23,53 +23,41 @@ import butterknife.ButterKnife;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> movieListItems;
+    private List<Movie> movieList;
 
-    public MovieAdapter(List<Movie> movieListItems) {
-        this.movieListItems = movieListItems;
+    public MovieAdapter(List<Movie> movieList) {
+        this.movieList = movieList;
+    }
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+
+        public MovieViewHolder(View itemView) {
+            super(itemView);
+            this.textView = itemView.findViewById(R.id.movie_title);
+        }
     }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        int layoutForListItem = R.layout.movie_list_item;
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = inflater.inflate(layoutForListItem, parent, false);
-        return new MovieViewHolder(view) {
-        };
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.movie_list_item, parent, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        String title = movieListItems.get(position).getTitle();
-        holder.movieTitle.setText(title);
-        notifyDataSetChanged();
+        String title = movieList.get(position).getTitle();
+        holder.textView.setText(title);
     }
 
 
     @Override
     public int getItemCount() {
-        return movieListItems.size();
+        return movieList.size();
     }
 
-    public void setMovieListItems(List<Movie> movieListItems) {
-        this.movieListItems = movieListItems;
-        notifyDataSetChanged();
-    }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.card_view)
-        CardView cardView;
-        @BindView(R.id.movie_title)
-        TextView movieTitle;
-        @BindView(R.id.movie_image)
-        ImageView movieImage;
 
-        public MovieViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(itemView);
-        }
-    }
 }
 

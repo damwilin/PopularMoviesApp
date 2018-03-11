@@ -1,10 +1,16 @@
 package com.wili.android.popularmoviesapp.presenter;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
+import com.wili.android.popularmoviesapp.repository.api.JSONResponse;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.view.MainActivityView;
 
 import java.util.List;
+
+import javax.security.auth.callback.Callback;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Damian on 24.02.2018.
@@ -21,20 +27,32 @@ public class MainActivityPresenter {
     }
 
     public void loadPopularMovies() {
-        List<Movie> movieList = repository.getPopularMovieList();
-        if (!movieList.isEmpty()) {
-            view.displayMovies(movieList);
-        } else {
-            view.displayNoMovies();
-        }
+        view.showLoading();
+        repository.getPopularMovieList().enqueue(new retrofit2.Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+                view.displayMovies(response.body().getResults());
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                view.displayNoMovies();
+            }
+        });
     }
 
     public void loadTopRatedMovies() {
-        List<Movie> movieList = repository.getTopRatedMovieList();
-        if (!movieList.isEmpty()) {
-            view.displayMovies(movieList);
-        } else {
-            view.displayNoMovies();
-        }
+        view.showLoading();
+        repository.getTopRatedMovieList().enqueue(new retrofit2.Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+                view.displayMovies(response.body().getResults());
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                view.displayNoMovies();
+            }
+        });
     }
 }

@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.presenter.MainActivityPresenter;
-import com.wili.android.popularmoviesapp.repository.ApiRepository;
-import com.wili.android.popularmoviesapp.repository.MoviesRepository;
+import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.view.MainActivityView;
 
@@ -37,7 +36,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter movieAdapter;
+
     private MainActivityPresenter presenter;
+    private RetrofitRepository repository;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +51,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        repository = new RetrofitRepository();
+        presenter = new MainActivityPresenter(this, repository);
 
-        MoviesRepository moviesRepository = new ApiRepository();
-        presenter = new MainActivityPresenter(this, moviesRepository);
-        presenter.loadPopularMovies();
+        configureRecyclerView();
+
+        presenter.loadTopRatedMovies();
+    }
+
+    private void configureRecyclerView() {
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
     }
 
     @Override
@@ -64,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
         switch (itemId) {
             case R.id.menu_popular:
+                presenter.loadPopularMovies();
                 return true;
             case R.id.menu_top_rated:
-                //change
+                presenter.loadTopRatedMovies();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -77,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     public void displayMovies(List<Movie> movieList) {
         progressBar.setVisibility(GONE);
         emptyView.setVisibility(GONE);
-        configureRecyclerView(movieList);
+        movieAdapter = new MovieAdapter(movieList);
+        recyclerView.setAdapter(movieAdapter);
     }
 
     @Override
@@ -86,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         emptyView.setText(empty_view);
     }
 
-    public void configureRecyclerView(List<Movie> movieList) {
-        layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        movieAdapter = new MovieAdapter(movieList);
-        recyclerView.setAdapter(movieAdapter);
-
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(GONE);
+    }
 }
