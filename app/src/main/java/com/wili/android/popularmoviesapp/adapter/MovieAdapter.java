@@ -1,21 +1,15 @@
 package com.wili.android.popularmoviesapp.adapter;
 
-import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Damian on 24.02.2018.
@@ -24,17 +18,30 @@ import butterknife.ButterKnife;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
+    private final MovieAdapterOnClickHandler onClickHandler;
 
-    public MovieAdapter(List<Movie> movieList) {
-        this.movieList = movieList;
+    public interface MovieAdapterOnClickHandler {
+        void onClick(int movieId);
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public MovieAdapter(List<Movie> movieList, MovieAdapterOnClickHandler onClickHandler) {
+        this.movieList = movieList;
+        this.onClickHandler = onClickHandler;
+    }
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.movie_title);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            onClickHandler.onClick(adapterPosition);
         }
     }
 

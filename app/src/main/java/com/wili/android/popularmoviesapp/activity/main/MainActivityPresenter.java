@@ -2,7 +2,6 @@ package com.wili.android.popularmoviesapp.activity.main;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
-import com.wili.android.popularmoviesapp.activity.main.MainActivityView;
 
 import retrofit2.Call;
 import retrofit2.Response;

@@ -28,5 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+        int ida = getIntent().getExtras().getInt("id");
+        title.setText(String.valueOf(ida));
     }
 }

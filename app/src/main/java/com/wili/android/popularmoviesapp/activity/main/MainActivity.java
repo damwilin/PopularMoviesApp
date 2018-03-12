@@ -1,5 +1,6 @@
 package com.wili.android.popularmoviesapp.activity.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
+import com.wili.android.popularmoviesapp.activity.detail.DetailsActivity;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
+import com.wili.android.popularmoviesapp.adapter.MovieAdapter.MovieAdapterOnClickHandler;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
@@ -24,7 +27,7 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static com.wili.android.popularmoviesapp.R.string.empty_view;
 
-public class MainActivity extends AppCompatActivity implements MainActivityView {
+public class MainActivity extends AppCompatActivity implements MainActivityView, MovieAdapterOnClickHandler {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.empty_view)
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     public void displayMovies(List<Movie> movieList) {
         progressBar.setVisibility(GONE);
         emptyView.setVisibility(GONE);
-        movieAdapter = new MovieAdapter(movieList);
+        movieAdapter = new MovieAdapter(movieList, this);
         recyclerView.setAdapter(movieAdapter);
     }
 
@@ -108,5 +111,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     public void hideLoading() {
         progressBar.setVisibility(GONE);
+    }
+
+    @Override
+    public void onClick(int movieId) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra("id", movieId);
+        startActivity(intent);
     }
 }
