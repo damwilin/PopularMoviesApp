@@ -8,4 +8,6 @@ import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 public interface DetailsActivityView {
     void displayMovieDetails(Movie movie);
+
+    void displayNoDetails();
 }

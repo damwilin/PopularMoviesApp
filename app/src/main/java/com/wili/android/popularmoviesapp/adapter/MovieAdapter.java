@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
@@ -31,10 +33,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
+        ImageView imageView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.movie_title);
+            this.imageView = itemView.findViewById(R.id.movie_image);
             itemView.setOnClickListener(this);
         }
 
@@ -56,7 +60,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String title = movieList.get(position).getTitle();
+        String posterPath = movieList.get(position).getPosterPath();
         holder.textView.setText(title);
+        Picasso.get()
+                .load(posterPath)
+                .into(holder.imageView);
     }
 
 

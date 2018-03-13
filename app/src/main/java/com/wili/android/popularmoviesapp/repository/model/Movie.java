@@ -2,6 +2,8 @@ package com.wili.android.popularmoviesapp.repository.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import static com.wili.android.popularmoviesapp.repository.network.ApiParam.POSTER_BASE_URL;
+
 /**
  * Created by Damian on 24.02.2018.
  */
@@ -27,6 +29,7 @@ public class Movie {
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
         this.movieId = movieId;
+        this.posterPath = posterPath;
     }
 
     public Movie() {
@@ -41,7 +44,7 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return POSTER_BASE_URL + posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -75,4 +78,6 @@ public class Movie {
     public String getMovieId() {
         return movieId;
     }
+
+
 }

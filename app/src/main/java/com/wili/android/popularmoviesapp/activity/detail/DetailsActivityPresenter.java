@@ -30,7 +30,7 @@ public class DetailsActivityPresenter {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-
+                view.displayNoDetails();
             }
         });
 

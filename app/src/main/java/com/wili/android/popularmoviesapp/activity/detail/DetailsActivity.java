@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
@@ -49,5 +50,14 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
         releaseDate.setText(movie.getReleaseDate());
         voteAverage.setText(movie.getVoteAverage());
         plotSynopsis.setText(movie.getOverview());
+
+        Picasso.get()
+                .load(movie.getPosterPath())
+                .into(poster);
+    }
+
+    @Override
+    public void displayNoDetails() {
+
     }
 }
