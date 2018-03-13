@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     }
 
     @Override
-    public void onClick(int movieId) {
+    public void onClick(String movieId) {
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("id", movieId);
         startActivity(intent);

@@ -11,4 +11,6 @@ public class ApiParam {
     public static final String TOP_RATED_PATH = "3/movie/top_rated?api_key=";
     public static final String POPULAR_PATH = "3/movie/popular?api_key=";
     public static final String API_KEY = BuildConfig.THE_MOVIE_DB_API_KEY;
+    public static final String MOVIE_PATH = "3/movie/";
+    public static final String API_PATH = "?api_key=";
 }

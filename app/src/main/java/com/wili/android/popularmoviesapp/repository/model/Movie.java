@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Movie {
-    @SerializedName("original_title")
+    @SerializedName("title")
     private String title;
     @SerializedName("poster_path")
     private String posterPath;
@@ -17,13 +17,16 @@ public class Movie {
     private String voteAverage;
     @SerializedName("release_date")
     private String releaseDate;
+    @SerializedName("id")
+    private String movieId;
 
-    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate) {
+    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieId) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
+        this.movieId = movieId;
     }
 
     public Movie() {
@@ -67,5 +70,9 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getMovieId() {
+        return movieId;
     }
 }

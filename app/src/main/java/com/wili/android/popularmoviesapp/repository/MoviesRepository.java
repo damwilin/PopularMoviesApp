@@ -1,5 +1,6 @@
 package com.wili.android.popularmoviesapp.repository;
 
+import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
 
 import retrofit2.Call;
@@ -12,4 +13,6 @@ public interface MoviesRepository {
     Call<JSONResponse> getPopularMovieList();
 
     Call<JSONResponse> getTopRatedMovieList();
+
+    Call<Movie> getMovie(String id);
 }
