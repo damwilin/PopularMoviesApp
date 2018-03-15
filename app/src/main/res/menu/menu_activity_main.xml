@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_top_rated"
-        android:title="@string/menu_top_rated" />
+        android:enabled="true"
+        android:icon="@drawable/ic_chevron_left_black_24dp"
+        android:title="@string/menu_top_rated"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_popular"
-        android:title="@string/menu_popular" />
+        android:enabled="true"
+        android:icon="@drawable/ic_chevron_right_black_24dp"
+        android:title="@string/menu_popular"
+        app:showAsAction="ifRoom" />
 
 </menu>

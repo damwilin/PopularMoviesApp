@@ -2,11 +2,11 @@ package com.wili.android.popularmoviesapp.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     TextView emptyView;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter movieAdapter;
@@ -56,37 +58,33 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         presenter = new MainActivityPresenter(this, repository);
 
         configureRecyclerView();
+        configureBottomNavigationView();
 
         presenter.loadTopRatedMovies();
     }
 
     private void configureRecyclerView() {
-        layoutManager = new GridLayoutManager(this, 2);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-
-        switch (itemId) {
-            case R.id.menu_popular:
-                presenter.loadPopularMovies();
-                return true;
-            case R.id.menu_top_rated:
-                presenter.loadTopRatedMovies();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    private void configureBottomNavigationView() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_popular:
+                        presenter.loadPopularMovies();
+                        return true;
+                    case R.id.menu_top_rated:
+                        presenter.loadTopRatedMovies();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
     }
 
     @Override
