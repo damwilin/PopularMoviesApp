@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.wili.android.popularmoviesapp.R.string.empty_view;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView, MovieAdapterOnClickHandler {
@@ -103,12 +103,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
 
     @Override
     public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideLoading() {
-        progressBar.setVisibility(GONE);
+        progressBar.setVisibility(VISIBLE);
     }
 
     @Override

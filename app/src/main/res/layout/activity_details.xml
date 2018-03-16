@@ -10,10 +10,10 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/cardview_margin"
         app:cardBackgroundColor="@color/blackBackground"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="2dp">
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        app:cardElevation="@dimen/cardview_elevation">
 
 
         <LinearLayout
@@ -23,12 +23,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="@dimen/image_height">
 
                 <ImageView
                     android:id="@+id/movie_poster"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:scaleType="centerCrop" />
 
@@ -39,32 +39,29 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="@color/accentBackground"
-                    android:padding="10dp"
+                    android:padding="@dimen/text_padding"
                     android:textAlignment="center"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/title_size"
                     android:textStyle="bold" />
             </RelativeLayout>
 
             <TextView
-
                 android:id="@+id/movie_release_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp" />
+                android:padding="@dimen/text_padding" />
 
             <TextView
-
                 android:id="@+id/movie_vote_average"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp" />
+                android:padding="@dimen/text_padding" />
 
             <TextView
-
                 android:id="@+id/movie_plot_synopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp" />
+                android:padding="@dimen/text_padding" />
 
         </LinearLayout>
 

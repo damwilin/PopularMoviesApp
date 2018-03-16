@@ -13,6 +13,9 @@ import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Damian on 24.02.2018.
  */
@@ -32,13 +35,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView textView;
-        ImageView imageView;
+        @BindView(R.id.movie_title)
+        TextView movieTitle;
+        @BindView(R.id.movie_image)
+        ImageView movieImage;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            this.textView = itemView.findViewById(R.id.movie_title);
-            this.imageView = itemView.findViewById(R.id.movie_image);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -61,19 +65,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String title = movieList.get(position).getTitle();
         String posterPath = movieList.get(position).getPosterPath();
-        holder.textView.setText(title);
+        holder.movieTitle.setText(title);
         Picasso.get()
                 .load(posterPath)
-                .into(holder.imageView);
+                .into(holder.movieImage);
     }
-
 
     @Override
     public int getItemCount() {
         return movieList.size();
     }
-
-
-
 }
 

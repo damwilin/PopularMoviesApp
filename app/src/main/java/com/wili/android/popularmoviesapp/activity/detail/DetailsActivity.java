@@ -58,6 +58,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
 
     @Override
     public void displayNoDetails() {
-
+        title.setText(R.string.empty_view);
     }
 }

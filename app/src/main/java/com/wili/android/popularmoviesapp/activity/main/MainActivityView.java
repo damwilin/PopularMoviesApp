@@ -14,6 +14,4 @@ public interface MainActivityView {
     void displayNoMovies();
 
     void showLoading();
-
-    void hideLoading();
 }

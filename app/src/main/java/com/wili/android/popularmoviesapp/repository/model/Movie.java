@@ -47,37 +47,19 @@ public class Movie {
         return POSTER_BASE_URL + posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
     public String getOverview() {
         return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
     }
 
     public String getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(String voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
     public String getReleaseDate() {
         return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     public String getMovieId() {
         return movieId;
     }
-
-
 }

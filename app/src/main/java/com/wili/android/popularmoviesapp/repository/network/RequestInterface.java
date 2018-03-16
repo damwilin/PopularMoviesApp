@@ -17,7 +17,6 @@ import static com.wili.android.popularmoviesapp.repository.network.ApiParam.TOP_
  */
 
 public interface RequestInterface {
-
     @GET(POPULAR_PATH)
     Call<JSONResponse> getPopularMoviesJSON(@Query("api_key") String apiKey);
 
@@ -26,5 +25,4 @@ public interface RequestInterface {
 
     @GET(MOVIE_PATH + "{id}" + API_PATH)
     Call<Movie> getMovieJSON(@Path("id") String id, @Query("api_key") String apiKey);
-
 }
