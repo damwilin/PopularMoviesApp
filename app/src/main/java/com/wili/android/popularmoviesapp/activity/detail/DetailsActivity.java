@@ -53,6 +53,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
 
         Picasso.get()
                 .load(movie.getPosterPath())
+                .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.ic_error_black_24dp)
                 .into(poster);
     }
 

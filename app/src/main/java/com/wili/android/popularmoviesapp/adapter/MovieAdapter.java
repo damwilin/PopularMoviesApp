@@ -68,6 +68,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.movieTitle.setText(title);
         Picasso.get()
                 .load(posterPath)
+                .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.ic_error_black_24dp)
                 .into(holder.movieImage);
     }
 
