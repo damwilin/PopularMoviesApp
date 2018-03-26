@@ -22,6 +22,8 @@ public class Movie {
     @SerializedName("id")
     private String movieId;
 
+    private boolean isFavourite;
+
     public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieId) {
         this.title = title;
         this.posterPath = posterPath;
@@ -57,6 +59,14 @@ public class Movie {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public void setIsFavourite(boolean mFavourite) {
+        this.isFavourite = mFavourite;
+    }
+
+    public boolean getIsFavourite() {
+        return isFavourite;
     }
 
     public String getMovieId() {

@@ -3,4 +3,5 @@
     <string name="menu_top_rated">top rated</string>
     <string name="menu_popular">popular</string>
     <string name="empty_view">There is no data to show. Check internet connectivity.</string>
+    <string name="favorites">favorites</string>
 </resources>

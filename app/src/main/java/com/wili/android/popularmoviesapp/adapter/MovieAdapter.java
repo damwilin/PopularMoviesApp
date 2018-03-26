@@ -39,6 +39,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView movieTitle;
         @BindView(R.id.movie_image)
         ImageView movieImage;
+        @BindView(R.id.favourite)
+        ImageView favourite;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +68,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String title = movieList.get(position).getTitle();
         String posterPath = movieList.get(position).getPosterPath();
         holder.movieTitle.setText(title);
+        boolean isFavourite = movieList.get(position).getIsFavourite();
+        //TODO setFavorites(y/n)
         Picasso.get()
                 .load(posterPath)
                 .placeholder(R.drawable.poster_placeholder)
@@ -77,5 +81,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount() {
         return movieList.size();
     }
+
 }
+
 

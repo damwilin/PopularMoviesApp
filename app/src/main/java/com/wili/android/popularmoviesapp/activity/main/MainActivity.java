@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
                     case R.id.menu_top_rated:
                         presenter.loadTopRatedMovies();
                         return true;
+                    case R.id.menu_favorites:
+                        presenter.loadFavorites();
+                        return true;
                     default:
                         return true;
                 }

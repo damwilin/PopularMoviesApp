@@ -49,4 +49,8 @@ public class MainActivityPresenter {
             }
         });
     }
+
+    public void loadFavorites() {
+        //TODO loadFavorites
+    }
 }
