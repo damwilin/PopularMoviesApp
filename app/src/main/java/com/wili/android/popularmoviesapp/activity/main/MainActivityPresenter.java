@@ -1,7 +1,7 @@
 package com.wili.android.popularmoviesapp.activity.main;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
-import com.wili.android.popularmoviesapp.repository.network.JSONResponse;
+import com.wili.android.popularmoviesapp.repository.network.MovieJSONResponse;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -22,14 +22,14 @@ public class MainActivityPresenter {
 
     public void loadPopularMovies() {
         view.showLoading();
-        repository.getPopularMovieList().enqueue(new retrofit2.Callback<JSONResponse>() {
+        repository.getPopularMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+            public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
             }
 
             @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
+            public void onFailure(Call<MovieJSONResponse> call, Throwable t) {
                 view.displayNoMovies();
             }
         });
@@ -37,14 +37,14 @@ public class MainActivityPresenter {
 
     public void loadTopRatedMovies() {
         view.showLoading();
-        repository.getTopRatedMovieList().enqueue(new retrofit2.Callback<JSONResponse>() {
+        repository.getTopRatedMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+            public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
             }
 
             @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
+            public void onFailure(Call<MovieJSONResponse> call, Throwable t) {
                 view.displayNoMovies();
             }
         });

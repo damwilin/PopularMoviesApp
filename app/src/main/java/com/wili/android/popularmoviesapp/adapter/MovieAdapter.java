@@ -67,9 +67,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String title = movieList.get(position).getTitle();
         String posterPath = movieList.get(position).getPosterPath();
-        holder.movieTitle.setText(title);
         boolean isFavourite = movieList.get(position).getIsFavourite();
-        //TODO setFavorites(y/n)
+
+        holder.movieTitle.setText(title);
+        holder.favourite.setImageResource(getFavoriteIcon(isFavourite));
         Picasso.get()
                 .load(posterPath)
                 .placeholder(R.drawable.poster_placeholder)
@@ -82,6 +83,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieList.size();
     }
 
+    private int getFavoriteIcon(boolean isFavorite) {
+
+        if (isFavorite)
+            return R.drawable.ic_favorite_true_24dp;
+        return R.drawable.ic_favorite_false_24dp;
+    }
 }
 
 

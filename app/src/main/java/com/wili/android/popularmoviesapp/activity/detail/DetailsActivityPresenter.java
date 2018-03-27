@@ -2,6 +2,7 @@ package com.wili.android.popularmoviesapp.activity.detail;
 
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
+import com.wili.android.popularmoviesapp.repository.network.ReviewJSONResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +34,19 @@ public class DetailsActivityPresenter {
                 view.displayNoDetails();
             }
         });
+    }
 
+    public void loadReviews(String id) {
+        repository.getReviewList(id).enqueue(new Callback<ReviewJSONResponse>() {
+            @Override
+            public void onResponse(Call<ReviewJSONResponse> call, Response<ReviewJSONResponse> response) {
+                view.displayReviews(response.body().getReviewList());
+            }
+
+            @Override
+            public void onFailure(Call<ReviewJSONResponse> call, Throwable t) {
+                view.displayNoReviews();
+            }
+        });
     }
 }

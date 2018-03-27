@@ -13,5 +13,6 @@ public class ApiParam {
     public static final String API_KEY = BuildConfig.THE_MOVIE_DB_API_KEY;
     public static final String MOVIE_PATH = "3/movie/";
     public static final String API_PATH = "?api_key=";
+    public static final String REVIEWS_PATH = "/reviews";
     public static final String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342";
 }

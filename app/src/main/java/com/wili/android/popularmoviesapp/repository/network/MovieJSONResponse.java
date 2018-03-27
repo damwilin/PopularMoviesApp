@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Damian on 11.03.2018.
  */
 
-public class JSONResponse {
+public class MovieJSONResponse {
     @SerializedName("results")
     @Expose
     public List<Movie> results;

@@ -21,10 +21,12 @@ public class Movie {
     private String releaseDate;
     @SerializedName("id")
     private String movieId;
+    @SerializedName("backdrop_path")
+    private String backgroundImagePath;
 
     private boolean isFavourite;
 
-    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieId) {
+    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieI, String backgroundImagePath) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
@@ -32,6 +34,7 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.movieId = movieId;
         this.posterPath = posterPath;
+        this.backgroundImagePath = backgroundImagePath;
     }
 
     public Movie() {
@@ -71,5 +74,9 @@ public class Movie {
 
     public String getMovieId() {
         return movieId;
+    }
+
+    public String getBackgroundImagePath() {
+        return POSTER_BASE_URL + backgroundImagePath;
     }
 }

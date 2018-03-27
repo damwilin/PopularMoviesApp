@@ -39,6 +39,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:layout_alignRight="@id/movie_title"
                 android:id="@+id/favourite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
