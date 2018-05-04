@@ -17,6 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.detail.DetailsActivity"></activity>
+
+        <provider
+            android:name="com.wili.android.popularmoviesapp.repository.database.MoviesProvider"
+            android:authorities="com.wili.android.popularmoviesapp"
+            android:exported="false" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
