@@ -12,6 +12,7 @@ import static com.wili.android.popularmoviesapp.repository.network.ApiParam.MOVI
 import static com.wili.android.popularmoviesapp.repository.network.ApiParam.POPULAR_PATH;
 import static com.wili.android.popularmoviesapp.repository.network.ApiParam.REVIEWS_PATH;
 import static com.wili.android.popularmoviesapp.repository.network.ApiParam.TOP_RATED_PATH;
+import static com.wili.android.popularmoviesapp.repository.network.ApiParam.VIDEOS_PATH;
 
 /**
  * Created by Damian on 04.03.2018.
@@ -29,4 +30,7 @@ public interface RequestInterface {
 
     @GET(MOVIE_PATH + "{id}" + REVIEWS_PATH + API_PATH)
     Call<ReviewJSONResponse> getReviewJSON(@Path("id") String id, @Query("api_key") String apiKey);
+
+    @GET(MOVIE_PATH + "{id}" + VIDEOS_PATH + API_PATH)
+    Call<VideoJSONResponse> getVideosJSON(@Path("id") String id, @Query("api_key") String apiKey);
 }

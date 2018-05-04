@@ -1,26 +1,31 @@
 package com.wili.android.popularmoviesapp.activity.detail;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.adapter.ReviewAdapter;
+import com.wili.android.popularmoviesapp.adapter.VideoAdapter;
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.model.Review;
+import com.wili.android.popularmoviesapp.repository.model.Video;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailsActivity extends AppCompatActivity implements DetailsActivityView {
+public class DetailsActivity extends AppCompatActivity implements DetailsActivityView, VideoAdapter.VideoAdapterOnClickHandler {
 
     @BindView(R.id.movie_title)
     TextView title;
@@ -36,13 +41,17 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
     ImageView backgroundImage;
     @BindView(R.id.reviews_recycler_view)
     RecyclerView reviewsRecyclerView;
+    @BindView(R.id.videos_recycler_view)
+    RecyclerView videosRecyclerView;
 
     private DetailsActivityPresenter presenter;
     private MoviesRepository repository;
 
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter reviewAdapter;
+    private RecyclerView.LayoutManager reviewsLayoutManager;
+    private RecyclerView.Adapter reviewsAdapter;
 
+    private RecyclerView.LayoutManager videosLayoutManager;
+    private RecyclerView.Adapter videosAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
         presenter.loadMovieDetails(id);
 
         configureRecyclerView();
+        presenter.loadVideos(id);
         presenter.loadReviews(id);
     }
 
@@ -86,8 +96,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
 
     @Override
     public void displayReviews(List<Review> reviewList) {
-        reviewAdapter = new ReviewAdapter(reviewList);
-        reviewsRecyclerView.setAdapter(reviewAdapter);
+        reviewsAdapter = new ReviewAdapter(reviewList);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
     }
 
     @Override
@@ -95,9 +105,32 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
 
     }
 
+    @Override
+    public void displayVideos(List<Video> videosList) {
+        videosAdapter = new VideoAdapter(videosList, this);
+        videosRecyclerView.setAdapter(videosAdapter);
+    }
+
+    @Override
+    public void displayNoVideos() {
+
+    }
+
     private void configureRecyclerView() {
-        layoutManager = new LinearLayoutManager(this);
-        reviewsRecyclerView.setLayoutManager(layoutManager);
+        reviewsLayoutManager = new LinearLayoutManager(this);
+        reviewsRecyclerView.setLayoutManager(reviewsLayoutManager);
         reviewsRecyclerView.setHasFixedSize(true);
+
+        videosLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        videosRecyclerView.setLayoutManager(videosLayoutManager);
+        videosRecyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    public void onClick(String videoPath) {
+        Log.d(DetailsActivity.class.getSimpleName(), videoPath);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
     }
 }

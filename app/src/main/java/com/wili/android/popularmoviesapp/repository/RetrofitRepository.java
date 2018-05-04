@@ -5,6 +5,7 @@ import com.wili.android.popularmoviesapp.repository.network.MovieJSONResponse;
 import com.wili.android.popularmoviesapp.repository.network.RequestInterface;
 import com.wili.android.popularmoviesapp.repository.network.RetrofitClient;
 import com.wili.android.popularmoviesapp.repository.network.ReviewJSONResponse;
+import com.wili.android.popularmoviesapp.repository.network.VideoJSONResponse;
 
 import retrofit2.Call;
 
@@ -39,6 +40,11 @@ public class RetrofitRepository implements MoviesRepository {
     @Override
     public Call<ReviewJSONResponse> getReviewList(String id) {
         return requestInterface.getReviewJSON(id, API_KEY);
+    }
+
+    @Override
+    public Call<VideoJSONResponse> getVideosList(String id) {
+        return requestInterface.getVideosJSON(id, API_KEY);
     }
 }
 

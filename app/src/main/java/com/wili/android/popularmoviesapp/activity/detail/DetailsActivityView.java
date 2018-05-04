@@ -2,6 +2,7 @@ package com.wili.android.popularmoviesapp.activity.detail;
 
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.model.Review;
+import com.wili.android.popularmoviesapp.repository.model.Video;
 
 import java.util.List;
 
@@ -11,10 +12,12 @@ import java.util.List;
 
 public interface DetailsActivityView {
     void displayMovieDetails(Movie movie);
-
     void displayNoDetails();
 
     void displayReviews(List<Review> reviewList);
-
     void displayNoReviews();
+
+    void displayVideos(List<Video> videosList);
+
+    void displayNoVideos();
 }
