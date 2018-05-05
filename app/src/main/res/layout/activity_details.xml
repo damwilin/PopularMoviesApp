@@ -53,6 +53,15 @@
                     android:layout_toRightOf="@id/movie_poster"
                     android:layout_below="@id/movie_release_date"
                     android:padding="@dimen/text_padding" />
+
+                <ImageView
+                    android:id="@+id/add_to_favourites"
+                    android:src="@drawable/ic_favorite_true_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/movie_poster"
+                    android:layout_below="@id/movie_vote_average"
+                    android:padding="@dimen/text_padding" />
             </RelativeLayout>
 
             <TextView

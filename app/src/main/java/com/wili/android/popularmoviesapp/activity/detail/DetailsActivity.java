@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.wili.android.popularmoviesapp.adapter.ReviewAdapter;
 import com.wili.android.popularmoviesapp.adapter.VideoAdapter;
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
+import com.wili.android.popularmoviesapp.repository.database.AppDbManager;
+import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.model.Review;
 import com.wili.android.popularmoviesapp.repository.model.Video;
@@ -43,9 +46,12 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
     RecyclerView reviewsRecyclerView;
     @BindView(R.id.videos_recycler_view)
     RecyclerView videosRecyclerView;
+    @BindView(R.id.add_to_favourites)
+    ImageView addToFavourites;
 
     private DetailsActivityPresenter presenter;
     private MoviesRepository repository;
+    private DbManager dbManager;
 
     private RecyclerView.LayoutManager reviewsLayoutManager;
     private RecyclerView.Adapter reviewsAdapter;
@@ -58,15 +64,23 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
+        dbManager = new AppDbManager(getContentResolver());
         repository = new RetrofitRepository();
-        presenter = new DetailsActivityPresenter(this, repository);
+        presenter = new DetailsActivityPresenter(this, repository, dbManager);
 
-        String id = getIntent().getExtras().getString("id");
+        final String id = getIntent().getExtras().getString("id");
         presenter.loadMovieDetails(id);
 
         configureRecyclerView();
         presenter.loadVideos(id);
         presenter.loadReviews(id);
+
+        addToFavourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addToFavourites(id);
+            }
+        });
     }
 
     @Override

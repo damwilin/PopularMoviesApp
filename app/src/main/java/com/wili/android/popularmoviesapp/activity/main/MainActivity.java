@@ -17,6 +17,8 @@ import com.wili.android.popularmoviesapp.activity.detail.DetailsActivity;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter.MovieAdapterOnClickHandler;
 import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
+import com.wili.android.popularmoviesapp.repository.database.AppDbManager;
+import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
 
     private MainActivityPresenter presenter;
     private RetrofitRepository repository;
-
+    private DbManager dbManager;
     @Override
     protected void onStart() {
         super.onStart();
@@ -55,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        dbManager = new AppDbManager(getContentResolver());
         repository = new RetrofitRepository();
-        presenter = new MainActivityPresenter(this, repository);
+        presenter = new MainActivityPresenter(this, repository, dbManager);
 
         configureRecyclerView();
         configureBottomNavigationView();

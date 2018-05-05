@@ -26,7 +26,7 @@ public class Movie {
 
     private boolean isFavourite;
 
-    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieI, String backgroundImagePath) {
+    public Movie(String title, String posterPath, String overview, String voteAverage, String releaseDate, String movieId, String backgroundImagePath) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
@@ -52,6 +52,13 @@ public class Movie {
         return POSTER_BASE_URL + posterPath;
     }
 
+    public String getBasePosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
     public String getOverview() {
         return overview;
     }
@@ -76,6 +83,9 @@ public class Movie {
         return movieId;
     }
 
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
     public String getBackgroundImagePath() {
         return POSTER_BASE_URL + backgroundImagePath;
     }

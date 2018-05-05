@@ -1,6 +1,9 @@
 package com.wili.android.popularmoviesapp.activity.detail;
 
+import android.util.Log;
+
 import com.wili.android.popularmoviesapp.repository.MoviesRepository;
+import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.network.ReviewJSONResponse;
 import com.wili.android.popularmoviesapp.repository.network.VideoJSONResponse;
@@ -16,11 +19,12 @@ import retrofit2.Response;
 public class DetailsActivityPresenter {
     private DetailsActivityView view;
     private MoviesRepository repository;
+    private DbManager dbManager;
 
-    public DetailsActivityPresenter(DetailsActivityView view, MoviesRepository repository) {
+    public DetailsActivityPresenter(DetailsActivityView view, MoviesRepository repository, DbManager dbManager) {
         this.view = view;
         this.repository = repository;
-
+        this.dbManager = dbManager;
     }
 
     public void loadMovieDetails(String id) {
@@ -61,6 +65,22 @@ public class DetailsActivityPresenter {
             @Override
             public void onFailure(Call<ReviewJSONResponse> call, Throwable t) {
                 view.displayNoReviews();
+            }
+        });
+    }
+
+    public void addToFavourites(String id) {
+        repository.getMovie(id).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                dbManager.saveMovie(response.body());
+                Log.d(DetailsActivity.class.getSimpleName(), "Added to favourites" + response.body().getTitle());
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+                Log.d(DetailsActivity.class.getSimpleName(), "Error : Not added to favourites");
             }
         });
     }
