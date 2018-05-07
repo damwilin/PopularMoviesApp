@@ -1,6 +1,6 @@
 package com.wili.android.popularmoviesapp.activity.main;
 
-import com.wili.android.popularmoviesapp.repository.model.Movie;
+import com.wili.android.popularmoviesapp.data.model.Movie;
 
 import java.util.List;
 

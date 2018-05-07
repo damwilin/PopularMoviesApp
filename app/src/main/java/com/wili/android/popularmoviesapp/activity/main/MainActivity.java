@@ -16,11 +16,13 @@ import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.activity.detail.DetailsActivity;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter.MovieAdapterOnClickHandler;
-import com.wili.android.popularmoviesapp.repository.ApiManager;
-import com.wili.android.popularmoviesapp.repository.AppApiManager;
-import com.wili.android.popularmoviesapp.repository.database.AppDbManager;
-import com.wili.android.popularmoviesapp.repository.database.DbManager;
-import com.wili.android.popularmoviesapp.repository.model.Movie;
+import com.wili.android.popularmoviesapp.data.AppDataManager;
+import com.wili.android.popularmoviesapp.data.DataManager;
+import com.wili.android.popularmoviesapp.data.database.AppDbManager;
+import com.wili.android.popularmoviesapp.data.database.DbManager;
+import com.wili.android.popularmoviesapp.data.model.Movie;
+import com.wili.android.popularmoviesapp.data.network.ApiManager;
+import com.wili.android.popularmoviesapp.data.network.AppApiManager;
 
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     private MainActivityPresenter presenter;
     private ApiManager apiManager;
     private DbManager dbManager;
+    private DataManager dataManager;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -60,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
 
         dbManager = new AppDbManager(getContentResolver());
         apiManager = new AppApiManager();
-        presenter = new MainActivityPresenter(this, apiManager, dbManager);
+        dataManager = new AppDataManager(apiManager, dbManager);
+
+        presenter = new MainActivityPresenter(this, dataManager);
 
         initMovieRecyclerView();
         configureBottomNavigationView();
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
                     case R.id.menu_top_rated:
                         presenter.loadTopRatedMovies();
                         return true;
-                    case R.id.menu_favorites:
+                    case R.id.menu_favourites:
                         presenter.loadFavorites();
                         return true;
                     default:
@@ -109,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     public void displayMovies(List<Movie> movieList) {
         progressBar.setVisibility(GONE);
         emptyView.setVisibility(GONE);
+        recyclerView.setVisibility(VISIBLE);
         movieAdapter = new MovieAdapter(movieList, this);
         recyclerView.setAdapter(movieAdapter);
     }
@@ -116,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     @Override
     public void displayNoMovies() {
         progressBar.setVisibility(GONE);
+        recyclerView.setVisibility(GONE);
+        emptyView.setVisibility(VISIBLE);
         emptyView.setText(empty_view);
     }
 
@@ -129,5 +138,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("id", movieId);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.refreshView();
     }
 }

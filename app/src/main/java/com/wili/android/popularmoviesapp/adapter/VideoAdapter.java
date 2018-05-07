@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
-import com.wili.android.popularmoviesapp.repository.model.Video;
+import com.wili.android.popularmoviesapp.data.model.Video;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
-import com.wili.android.popularmoviesapp.repository.model.Movie;
+import com.wili.android.popularmoviesapp.data.model.Movie;
 
 import java.util.List;
 
@@ -39,9 +39,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView movieTitle;
         @BindView(R.id.movie_image)
         ImageView movieImage;
-        @BindView(R.id.favourite)
-        ImageView favourite;
-
         public MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -67,10 +64,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String title = movieList.get(position).getTitle();
         String posterPath = movieList.get(position).getPosterPath();
-        boolean isFavourite = movieList.get(position).getIsFavourite();
 
         holder.movieTitle.setText(title);
-        holder.favourite.setImageResource(getFavoriteIcon(isFavourite));
         Picasso.get()
                 .load(posterPath)
                 .placeholder(R.drawable.poster_placeholder)
@@ -81,13 +76,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public int getItemCount() {
         return movieList.size();
-    }
-
-    private int getFavoriteIcon(boolean isFavorite) {
-
-        if (isFavorite)
-            return R.drawable.ic_favorite_true_24dp;
-        return R.drawable.ic_favorite_false_24dp;
     }
 }
 

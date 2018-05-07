@@ -14,10 +14,10 @@
         android:title="@string/menu_popular"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_favorites"
+        android:id="@+id/menu_favourites"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_true_24dp"
-        android:title="@string/favorites"
+        android:title="@string/favourites"
         app:showAsAction="ifRoom" />
 
 </menu>

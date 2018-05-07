@@ -1,11 +1,9 @@
 package com.wili.android.popularmoviesapp.activity.main;
 
-import android.util.Log;
-
-import com.wili.android.popularmoviesapp.repository.ApiManager;
-import com.wili.android.popularmoviesapp.repository.database.DbManager;
-import com.wili.android.popularmoviesapp.repository.model.Movie;
-import com.wili.android.popularmoviesapp.repository.network.MovieJSONResponse;
+import com.wili.android.popularmoviesapp.data.DataManager;
+import com.wili.android.popularmoviesapp.data.model.Movie;
+import com.wili.android.popularmoviesapp.data.network.MovieJSONResponse;
+import com.wili.android.popularmoviesapp.utils.CategoryManager;
 
 import java.util.List;
 
@@ -19,22 +17,21 @@ import retrofit2.Response;
 public class MainActivityPresenter {
 
     private MainActivityView view;
-    private ApiManager apiManager;
-    private DbManager dbManager;
+    private DataManager dataManager;
 
-    public MainActivityPresenter(MainActivityView view, ApiManager apiManager, DbManager dbManager) {
+
+    public MainActivityPresenter(MainActivityView view, DataManager dataManager) {
         this.view = view;
-        this.apiManager = apiManager;
-        this.dbManager = dbManager;
-
+        this.dataManager = dataManager;
     }
 
     public void loadPopularMovies() {
         view.showLoading();
-        apiManager.getPopularMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
+        dataManager.getPopularMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
+                CategoryManager.setPopular();
             }
 
             @Override
@@ -46,10 +43,11 @@ public class MainActivityPresenter {
 
     public void loadTopRatedMovies() {
         view.showLoading();
-        apiManager.getTopRatedMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
+        dataManager.getTopRatedMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
+                CategoryManager.setTopRated();
             }
 
             @Override
@@ -61,8 +59,28 @@ public class MainActivityPresenter {
 
     public void loadFavorites() {
         view.showLoading();
-        List<Movie> movieList = dbManager.getMoviesList();
-        Log.d(MainActivityPresenter.class.getSimpleName(), movieList.get(0).getPosterPath());
-        view.displayMovies(movieList);
+        List<Movie> movieList = dataManager.getFavouriteMoviesList();
+        if (movieList.isEmpty()) {
+            view.displayNoMovies();
+        } else {
+            view.displayMovies(movieList);
+            CategoryManager.setFavourite();
+        }
+    }
+
+    public void refreshView() {
+        switch (CategoryManager.getCategory()) {
+            case CategoryManager.TOP_RATED:
+                loadTopRatedMovies();
+                break;
+            case CategoryManager.POPULAR:
+                loadPopularMovies();
+                break;
+            case CategoryManager.FAVOURITE:
+                loadFavorites();
+                break;
+            default:
+                break;
+        }
     }
 }

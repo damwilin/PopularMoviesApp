@@ -1,8 +1,8 @@
 package com.wili.android.popularmoviesapp.activity.detail;
 
-import com.wili.android.popularmoviesapp.repository.model.Movie;
-import com.wili.android.popularmoviesapp.repository.model.Review;
-import com.wili.android.popularmoviesapp.repository.model.Video;
+import com.wili.android.popularmoviesapp.data.model.Movie;
+import com.wili.android.popularmoviesapp.data.model.Review;
+import com.wili.android.popularmoviesapp.data.model.Video;
 
 import java.util.List;
 
@@ -24,4 +24,10 @@ public interface DetailsActivityView {
     void displayFavourite();
 
     void displayNoFavourite();
+
+    void displayToastAddedToFavourites();
+
+    void displayToastDeletedFromFavourites();
+
+    void displayToastAddedToFavouritesError();
 }

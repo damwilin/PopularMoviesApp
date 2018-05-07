@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wili.android.popularmoviesapp.R;
-import com.wili.android.popularmoviesapp.repository.model.Review;
+import com.wili.android.popularmoviesapp.data.model.Review;
 
 import java.util.List;
 
