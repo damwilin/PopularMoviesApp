@@ -95,7 +95,7 @@ public class MoviesProvider extends ContentProvider {
         int numRowsDeleted;
 
         switch (sUriMatcher.match(uri)) {
-            case CODE_MOVIE_ID:
+            case CODE_MOVIE:
                 numRowsDeleted = writableDb.delete(
                         TABLE_NAME,
                         selection,

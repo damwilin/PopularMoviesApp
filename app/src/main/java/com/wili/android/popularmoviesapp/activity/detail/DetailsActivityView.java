@@ -20,4 +20,8 @@ public interface DetailsActivityView {
     void displayVideos(List<Video> videosList);
 
     void displayNoVideos();
+
+    void displayFavourite();
+
+    void displayNoFavourite();
 }

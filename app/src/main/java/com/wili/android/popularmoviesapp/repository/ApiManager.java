@@ -11,7 +11,7 @@ import retrofit2.Call;
  * Created by Damian on 24.02.2018.
  */
 
-public interface MoviesRepository {
+public interface ApiManager {
     Call<MovieJSONResponse> getPopularMovieList();
 
     Call<MovieJSONResponse> getTopRatedMovieList();

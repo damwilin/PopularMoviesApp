@@ -2,7 +2,7 @@ package com.wili.android.popularmoviesapp.activity.detail;
 
 import android.util.Log;
 
-import com.wili.android.popularmoviesapp.repository.MoviesRepository;
+import com.wili.android.popularmoviesapp.repository.ApiManager;
 import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.network.ReviewJSONResponse;
@@ -18,17 +18,17 @@ import retrofit2.Response;
 
 public class DetailsActivityPresenter {
     private DetailsActivityView view;
-    private MoviesRepository repository;
+    private ApiManager apiManager;
     private DbManager dbManager;
 
-    public DetailsActivityPresenter(DetailsActivityView view, MoviesRepository repository, DbManager dbManager) {
+    public DetailsActivityPresenter(DetailsActivityView view, ApiManager apiManager, DbManager dbManager) {
         this.view = view;
-        this.repository = repository;
+        this.apiManager = apiManager;
         this.dbManager = dbManager;
     }
 
     public void loadMovieDetails(String id) {
-        repository.getMovie(id).enqueue(new Callback<Movie>() {
+        apiManager.getMovie(id).enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 view.displayMovieDetails(response.body());
@@ -42,7 +42,7 @@ public class DetailsActivityPresenter {
     }
 
     public void loadVideos(String id) {
-        repository.getVideosList(id).enqueue(new Callback<VideoJSONResponse>() {
+        apiManager.getVideosList(id).enqueue(new Callback<VideoJSONResponse>() {
             @Override
             public void onResponse(Call<VideoJSONResponse> call, Response<VideoJSONResponse> response) {
                 view.displayVideos(response.body().getVideosList());
@@ -56,7 +56,7 @@ public class DetailsActivityPresenter {
     }
 
     public void loadReviews(String id) {
-        repository.getReviewList(id).enqueue(new Callback<ReviewJSONResponse>() {
+        apiManager.getReviewList(id).enqueue(new Callback<ReviewJSONResponse>() {
             @Override
             public void onResponse(Call<ReviewJSONResponse> call, Response<ReviewJSONResponse> response) {
                 view.displayReviews(response.body().getReviewList());
@@ -69,8 +69,8 @@ public class DetailsActivityPresenter {
         });
     }
 
-    public void addToFavourites(String id) {
-        repository.getMovie(id).enqueue(new Callback<Movie>() {
+    private void addToFavourites(String id) {
+        apiManager.getMovie(id).enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 dbManager.saveMovie(response.body());
@@ -83,5 +83,28 @@ public class DetailsActivityPresenter {
                 Log.d(DetailsActivity.class.getSimpleName(), "Error : Not added to favourites");
             }
         });
+    }
+
+    private void deleteFromFavourites(String id) {
+        dbManager.deleteMovie(id);
+    }
+
+    public void switchFavourite(String id) {
+        if (!dbManager.isFavourite(id)) {
+            addToFavourites(id);
+            view.displayFavourite();
+            Log.d(DetailsActivityPresenter.class.getSimpleName(), "ADDED to favourites: " + id);
+        } else {
+            deleteFromFavourites(id);
+            view.displayNoFavourite();
+            Log.d(DetailsActivityPresenter.class.getSimpleName(), "DELETED from favourites: " + id);
+        }
+    }
+
+    public void loadFavouriteIcon(String id) {
+        if (dbManager.isFavourite(id))
+            view.displayFavourite();
+        else
+            view.displayNoFavourite();
     }
 }

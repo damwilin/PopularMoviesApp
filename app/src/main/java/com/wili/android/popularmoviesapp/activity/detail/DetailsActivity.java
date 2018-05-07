@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.adapter.ReviewAdapter;
 import com.wili.android.popularmoviesapp.adapter.VideoAdapter;
-import com.wili.android.popularmoviesapp.repository.MoviesRepository;
-import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
+import com.wili.android.popularmoviesapp.repository.ApiManager;
+import com.wili.android.popularmoviesapp.repository.AppApiManager;
 import com.wili.android.popularmoviesapp.repository.database.AppDbManager;
 import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
@@ -50,7 +50,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
     ImageView addToFavourites;
 
     private DetailsActivityPresenter presenter;
-    private MoviesRepository repository;
+    private ApiManager apiManager;
     private DbManager dbManager;
 
     private RecyclerView.LayoutManager reviewsLayoutManager;
@@ -65,20 +65,24 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
         ButterKnife.bind(this);
 
         dbManager = new AppDbManager(getContentResolver());
-        repository = new RetrofitRepository();
-        presenter = new DetailsActivityPresenter(this, repository, dbManager);
+        apiManager = new AppApiManager();
+        presenter = new DetailsActivityPresenter(this, apiManager, dbManager);
 
         final String id = getIntent().getExtras().getString("id");
-        presenter.loadMovieDetails(id);
 
-        configureRecyclerView();
+        presenter.loadMovieDetails(id);
+        presenter.loadFavouriteIcon(id);
+
+        initVideosRecyclerView();
         presenter.loadVideos(id);
+
+        initReviewsRecyclerView();
         presenter.loadReviews(id);
 
         addToFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.addToFavourites(id);
+                presenter.switchFavourite(id);
             }
         });
     }
@@ -130,11 +134,24 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
 
     }
 
-    private void configureRecyclerView() {
+    @Override
+    public void displayFavourite() {
+        addToFavourites.setImageResource(R.drawable.ic_favorite_true_24dp);
+    }
+
+    @Override
+    public void displayNoFavourite() {
+        addToFavourites.setImageResource(R.drawable.ic_favorite_false_24dp);
+    }
+
+
+    private void initReviewsRecyclerView() {
         reviewsLayoutManager = new LinearLayoutManager(this);
         reviewsRecyclerView.setLayoutManager(reviewsLayoutManager);
         reviewsRecyclerView.setHasFixedSize(true);
+    }
 
+    private void initVideosRecyclerView() {
         videosLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         videosRecyclerView.setLayoutManager(videosLayoutManager);
         videosRecyclerView.setHasFixedSize(true);

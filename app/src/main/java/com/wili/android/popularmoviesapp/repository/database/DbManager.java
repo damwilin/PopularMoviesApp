@@ -10,4 +10,6 @@ public interface DbManager {
     void deleteMovie(String movieId);
 
     List<Movie> getMoviesList();
+
+    boolean isFavourite(String movieId);
 }

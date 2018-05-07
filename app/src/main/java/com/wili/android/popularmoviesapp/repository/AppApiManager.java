@@ -15,10 +15,10 @@ import static com.wili.android.popularmoviesapp.repository.network.ApiParam.API_
  * Created by Damian on 06.03.2018.
  */
 
-public class RetrofitRepository implements MoviesRepository {
+public class AppApiManager implements ApiManager {
     private RequestInterface requestInterface;
 
-    public RetrofitRepository() {
+    public AppApiManager() {
         this.requestInterface = RetrofitClient.getService(RequestInterface.class);
     }
 

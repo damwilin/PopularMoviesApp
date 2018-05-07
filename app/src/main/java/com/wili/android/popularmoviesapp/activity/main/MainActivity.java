@@ -16,7 +16,8 @@ import com.wili.android.popularmoviesapp.R;
 import com.wili.android.popularmoviesapp.activity.detail.DetailsActivity;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter;
 import com.wili.android.popularmoviesapp.adapter.MovieAdapter.MovieAdapterOnClickHandler;
-import com.wili.android.popularmoviesapp.repository.RetrofitRepository;
+import com.wili.android.popularmoviesapp.repository.ApiManager;
+import com.wili.android.popularmoviesapp.repository.AppApiManager;
 import com.wili.android.popularmoviesapp.repository.database.AppDbManager;
 import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     private RecyclerView.Adapter movieAdapter;
 
     private MainActivityPresenter presenter;
-    private RetrofitRepository repository;
+    private ApiManager apiManager;
     private DbManager dbManager;
     @Override
     protected void onStart() {
@@ -58,16 +59,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         ButterKnife.bind(this);
 
         dbManager = new AppDbManager(getContentResolver());
-        repository = new RetrofitRepository();
-        presenter = new MainActivityPresenter(this, repository, dbManager);
+        apiManager = new AppApiManager();
+        presenter = new MainActivityPresenter(this, apiManager, dbManager);
 
-        configureRecyclerView();
+        initMovieRecyclerView();
         configureBottomNavigationView();
 
         presenter.loadTopRatedMovies();
     }
 
-    private void configureRecyclerView() {
+    private void initMovieRecyclerView() {
         layoutManager = new GridLayoutManager(this, numberOfColumns());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

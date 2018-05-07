@@ -47,4 +47,13 @@ public class AppDbManager implements DbManager {
         String[] selectionArgs = {movieId};
         contentResolver.delete(MoviesContract.MoviesEntry.CONTENT_URI, selection, selectionArgs);
     }
+
+    @Override
+    public boolean isFavourite(String movieId) {
+        String selection = MoviesContract.MoviesEntry.COLUMN_NAME_MOVIE_ID + " = ? ";
+        String[] selectionArgs = {movieId};
+        String[] projection = {MoviesContract.MoviesEntry.COLUMN_NAME_MOVIE_ID};
+        Cursor cursor = contentResolver.query(MoviesContract.MoviesEntry.CONTENT_URI, projection, selection, selectionArgs, null);
+        return cursor.getCount() != 0;
+    }
 }

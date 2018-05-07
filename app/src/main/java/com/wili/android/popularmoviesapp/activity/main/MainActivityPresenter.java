@@ -2,7 +2,7 @@ package com.wili.android.popularmoviesapp.activity.main;
 
 import android.util.Log;
 
-import com.wili.android.popularmoviesapp.repository.MoviesRepository;
+import com.wili.android.popularmoviesapp.repository.ApiManager;
 import com.wili.android.popularmoviesapp.repository.database.DbManager;
 import com.wili.android.popularmoviesapp.repository.model.Movie;
 import com.wili.android.popularmoviesapp.repository.network.MovieJSONResponse;
@@ -19,19 +19,19 @@ import retrofit2.Response;
 public class MainActivityPresenter {
 
     private MainActivityView view;
-    private MoviesRepository repository;
+    private ApiManager apiManager;
     private DbManager dbManager;
 
-    public MainActivityPresenter(MainActivityView view, MoviesRepository repository, DbManager dbManager) {
+    public MainActivityPresenter(MainActivityView view, ApiManager apiManager, DbManager dbManager) {
         this.view = view;
-        this.repository = repository;
+        this.apiManager = apiManager;
         this.dbManager = dbManager;
 
     }
 
     public void loadPopularMovies() {
         view.showLoading();
-        repository.getPopularMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
+        apiManager.getPopularMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
@@ -46,7 +46,7 @@ public class MainActivityPresenter {
 
     public void loadTopRatedMovies() {
         view.showLoading();
-        repository.getTopRatedMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
+        apiManager.getTopRatedMovieList().enqueue(new retrofit2.Callback<MovieJSONResponse>() {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
