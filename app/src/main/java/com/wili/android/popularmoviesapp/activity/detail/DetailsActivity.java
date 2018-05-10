@@ -3,6 +3,7 @@ package com.wili.android.popularmoviesapp.activity.detail;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,6 +64,9 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
     private RecyclerView.LayoutManager videosLayoutManager;
     private RecyclerView.Adapter videosAdapter;
 
+    private static final String REVIEWS_LAYOUT = "reviews_layout";
+    private static final String VIDEOS_LAYOUT = "videos_layout";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,16 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
                 presenter.switchFavourite(id);
             }
         });
+
+        if (savedInstanceState != null) {
+            Parcelable savedReviewsLayoutState = savedInstanceState.getParcelable(REVIEWS_LAYOUT);
+            Parcelable savedVideosLayoutState = savedInstanceState.getParcelable(VIDEOS_LAYOUT);
+            if (savedReviewsLayoutState != null)
+                reviewsLayoutManager.onRestoreInstanceState(savedInstanceState);
+            if (savedVideosLayoutState != null)
+                videosLayoutManager.onRestoreInstanceState(savedVideosLayoutState);
+
+        }
     }
 
     @Override
@@ -193,5 +207,12 @@ public class DetailsActivity extends AppCompatActivity implements DetailsActivit
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
         if (intent.resolveActivity(getPackageManager()) != null)
             startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(REVIEWS_LAYOUT, reviewsLayoutManager.onSaveInstanceState());
+        outState.putParcelable(VIDEOS_LAYOUT, videosLayoutManager.onSaveInstanceState());
     }
 }

@@ -3,7 +3,6 @@ package com.wili.android.popularmoviesapp.activity.main;
 import com.wili.android.popularmoviesapp.data.DataManager;
 import com.wili.android.popularmoviesapp.data.model.Movie;
 import com.wili.android.popularmoviesapp.data.network.MovieJSONResponse;
-import com.wili.android.popularmoviesapp.utils.CategoryManager;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class MainActivityPresenter {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
-                CategoryManager.setPopular();
             }
 
             @Override
@@ -47,7 +45,6 @@ public class MainActivityPresenter {
             @Override
             public void onResponse(Call<MovieJSONResponse> call, Response<MovieJSONResponse> response) {
                 view.displayMovies(response.body().getResults());
-                CategoryManager.setTopRated();
             }
 
             @Override
@@ -64,23 +61,6 @@ public class MainActivityPresenter {
             view.displayNoMovies();
         } else {
             view.displayMovies(movieList);
-            CategoryManager.setFavourite();
-        }
-    }
-
-    public void refreshView() {
-        switch (CategoryManager.getCategory()) {
-            case CategoryManager.TOP_RATED:
-                loadTopRatedMovies();
-                break;
-            case CategoryManager.POPULAR:
-                loadPopularMovies();
-                break;
-            case CategoryManager.FAVOURITE:
-                loadFavorites();
-                break;
-            default:
-                break;
         }
     }
 }

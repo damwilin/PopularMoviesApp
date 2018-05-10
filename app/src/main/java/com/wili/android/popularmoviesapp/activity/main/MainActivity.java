@@ -2,6 +2,7 @@ package com.wili.android.popularmoviesapp.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.wili.android.popularmoviesapp.data.database.DbManager;
 import com.wili.android.popularmoviesapp.data.model.Movie;
 import com.wili.android.popularmoviesapp.data.network.ApiManager;
 import com.wili.android.popularmoviesapp.data.network.AppApiManager;
+import com.wili.android.popularmoviesapp.utils.CategoryConstants;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ import static android.view.View.VISIBLE;
 import static com.wili.android.popularmoviesapp.R.string.empty_view;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView, MovieAdapterOnClickHandler {
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.empty_view)
@@ -50,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     private ApiManager apiManager;
     private DbManager dbManager;
     private DataManager dataManager;
+
+    private static final String LAYOUT_STATE = "recycler_state";
+    private static final String CATEGORY = "category";
+    private int currCategory;
 
     @Override
     protected void onStart() {
@@ -71,7 +78,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         initMovieRecyclerView();
         configureBottomNavigationView();
 
-        presenter.loadTopRatedMovies();
+
+        if (savedInstanceState != null) {
+            Parcelable savedLayoutState = savedInstanceState.getParcelable(LAYOUT_STATE);
+            if (savedLayoutState != null)
+                layoutManager.onRestoreInstanceState(savedLayoutState);
+            currCategory = savedInstanceState.getInt(CATEGORY);
+            switch (currCategory) {
+                case CategoryConstants.FAVOURITE:
+                    presenter.loadFavorites();
+                    break;
+                case CategoryConstants.POPULAR:
+                    presenter.loadPopularMovies();
+                    break;
+                case CategoryConstants.TOP_RATED:
+                    presenter.loadTopRatedMovies();
+                    break;
+            }
+
+        } else
+            presenter.loadTopRatedMovies();
     }
 
     private void initMovieRecyclerView() {
@@ -97,12 +123,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
                 switch (item.getItemId()) {
                     case R.id.menu_popular:
                         presenter.loadPopularMovies();
+                        currCategory = CategoryConstants.POPULAR;
                         return true;
                     case R.id.menu_top_rated:
                         presenter.loadTopRatedMovies();
+                        currCategory = CategoryConstants.TOP_RATED;
                         return true;
                     case R.id.menu_favourites:
                         presenter.loadFavorites();
+                        currCategory = CategoryConstants.FAVOURITE;
                         return true;
                     default:
                         return true;
@@ -141,8 +170,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.refreshView();
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LAYOUT_STATE, layoutManager.onSaveInstanceState());
+        outState.putInt(CATEGORY, currCategory);
     }
 }
