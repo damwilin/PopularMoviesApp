@@ -1,5 +1,5 @@
 # PopularMoviesApp
-
+Project created for Udacity Android Basics Nanodegree
 
 ## Built with:
 * [Butterknife](https://jakewharton.github.io/butterknife/)
